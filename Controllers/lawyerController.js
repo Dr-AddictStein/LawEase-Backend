@@ -21,6 +21,7 @@ export const loginUser = async (req,res)=>{
 
 
 export const singupUser = async (req,res)=>{
+    // console.log("AOAOAO",req.body)
     const {firstname, lastname, phone, email, password}=req.body;
     try {
         const user = await lawyerModel.signup(firstname, lastname, phone, email, password);
