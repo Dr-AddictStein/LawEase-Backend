@@ -39,7 +39,17 @@ const lawyerSchema = new mongoose.Schema({
     },
     city: {
         type: String
-    }
+    },
+    availability: [{
+        date: {
+            type: String
+        },
+        times: [{
+            range: {
+                type: String
+            }
+        }]
+    }]
 }, { timestamps: true });
 
 lawyerSchema.statics.signup = async function (firstname, lastname, phone, email, password) {
