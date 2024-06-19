@@ -30,6 +30,15 @@ const lawyerSchema = new mongoose.Schema({
     },
     bio: {
         type: String
+    },
+    experience: {
+        type: String
+    },
+    category: {
+        type: String
+    },
+    city: {
+        type: String
     }
 }, { timestamps: true });
 

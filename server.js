@@ -5,6 +5,7 @@ import cors from 'cors'
 
 // application routes imports
 import lawyerRoutes from './Routes/lawyerRoutes.js';
+import fileRoutes from "./Routes/fileRoutes.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 // application routes
 app.use("/api/lawyer", lawyerRoutes);
+app.use("/api/file",fileRoutes);
 
 
 
