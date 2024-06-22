@@ -35,7 +35,7 @@ const lawyerSchema = new mongoose.Schema({
         type: String
     },
     category: {
-        type: String
+        type: [String]
     },
     city: {
         type: String
