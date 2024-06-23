@@ -59,7 +59,7 @@ lawyerSchema.statics.signup = async function (firstname, lastname, phone, email,
         throw Error("Email already exists.!.");
     }
     if (!email || !password || !firstname || !lastname || !phone) {
-        throw Error("All fields must be filled...")
+        throw Error("All fields must be filled...");
     }
 
     if (!validator.isEmail(email)) {
