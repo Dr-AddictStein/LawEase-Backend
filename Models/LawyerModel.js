@@ -60,6 +60,9 @@ const lawyerSchema = new mongoose.Schema({
             },
             desc: {
                 type: String
+            },
+            date: {
+                type: String
             }
         }
     ]
