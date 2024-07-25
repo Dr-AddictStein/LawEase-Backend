@@ -19,7 +19,11 @@ export const sendOTP = async (req, res) => {
         slot: req.body.slot,
         desc: req.body.desc,
     };
-    const otp = Date.now().toString();
+    const sa = Date.now().toString();
+
+    const mid  = parseInt(sa);
+
+    const otp = mid%1000000;
 
     const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -45,7 +49,9 @@ export const sendOTP = async (req, res) => {
         }
     });
 
-    return res.status(201).json(otp);
+    const toSend=otp.toString();
+
+    return res.status(201).json(toSend);
 
 }
 
