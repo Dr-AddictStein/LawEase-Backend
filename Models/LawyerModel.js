@@ -49,7 +49,20 @@ const lawyerSchema = new mongoose.Schema({
                 type: String
             }
         }]
-    }]
+    }],
+    reviews: [
+        {
+            clientName: {
+                type: String
+            },
+            rating: {
+                type: Number
+            },
+            desc: {
+                type: String
+            }
+        }
+    ]
 }, { timestamps: true });
 
 lawyerSchema.statics.signup = async function (firstname, lastname, phone, email, password) {
