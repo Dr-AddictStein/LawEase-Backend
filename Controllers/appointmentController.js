@@ -61,6 +61,7 @@ export const createAppointment = async (req, res) => {
             date: req.body.date,
             slot: req.body.slot,
             desc: req.body.desc,
+            iscompleted: false
         };
         const newAppointment = new appointmentModel(data);
         const lawyer = await lawyerModel.findById(id);
@@ -139,5 +140,52 @@ export const getLawyerAppointments = async (req, res) => {
         return res.status(400).json({ error: "No Such lawyer Found.!." });
     }
 };
+
+export const markAsCompleted = async (req, res) => {
+    const { id } = req.params;
+    let dat = await appointmentModel.findById(id);
+    dat.iscompleted = true;
+
+    const lawyer = await lawyerModel.findById(dat.lawyerId);
+
+    const appo = await appointmentModel.findOneAndUpdate(
+        {
+            _id: id
+        },
+        {
+            ...dat
+        }
+    );
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "lawease24@gmail.com",
+            pass: "caou envd jhnj tmxl",
+        },
+    });
+
+    const mailOptions = {
+        from: 'lawease24@gmail.com',
+        to: dat.email,
+        subject: `Rate Your Appointment with ${lawyer.firstname}`,
+        text: `Hi ${dat.clientname},\nHow was your appointment with ${lawyer.firstname}?\n`,
+        html: `<p>Hi ${dat.clientname},</p>
+               <p>How was your appointment with ${lawyer.firstname}?</p>
+               <p>Provide your valuable feedback by clicking this <a href="http://localhost:3000/share-review/${lawyer._id + '-' + dat.clientname}">Lawease Feedback Posting</a>.</p>
+               <p>Team LawEase</p>`,
+        };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Email sent: " + info.response);
+        }
+    });
+
+    return res.status(200).json(appo);
+
+}
 
 // export{data};

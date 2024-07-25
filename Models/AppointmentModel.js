@@ -29,6 +29,9 @@ const appointmentSchema = new mongoose.Schema({
     },
     desc:{
         type: String,
+    },
+    iscompleted:{
+        type:Boolean
     }
 }, { timestamps: true });
 

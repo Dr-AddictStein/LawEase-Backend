@@ -1,5 +1,5 @@
 import express from 'express';
-import { createAppointment, getAllAppointment, getLawyerAppointments, sendOTP } from '../Controllers/appointmentController.js';
+import { createAppointment, getAllAppointment, getLawyerAppointments, markAsCompleted, sendOTP } from '../Controllers/appointmentController.js';
 
 
 
@@ -13,6 +13,8 @@ router.post('/sendotp',sendOTP)
 
 router.get('/getAppointment/:id',getLawyerAppointments)
 router.get('/getAppointment',getAllAppointment)
+
+router.patch('/markascompleted/:id',markAsCompleted);
 
 
 

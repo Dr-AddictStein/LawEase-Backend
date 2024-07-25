@@ -71,3 +71,32 @@ export const updateLawyer = async (req, res) => {
         return res.status(400).json({ error: "No Such Lawyer Found.!." });
     }
 };
+
+
+export const postReview = async (req, res) => {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "Invalid ID.!." });
+    }
+
+    let dex = await lawyerModel.findById(id);
+
+    let revArr = dex.reviews;
+
+
+
+    revArr.push(req.body);
+
+    console.log("lol.!.",revArr)
+
+
+    const lawyer = await lawyerModel.findOneAndUpdate({ _id: id }, {
+        reviews:revArr
+    });
+
+    if (lawyer) {
+        res.status(200).json(lawyer);
+    } else {
+        return res.status(400).json({ error: "No Such Lawyer Found.!." });
+    }
+};
