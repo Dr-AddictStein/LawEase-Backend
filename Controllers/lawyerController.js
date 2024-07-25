@@ -1,9 +1,57 @@
 import lawyerModel from '../models/LawyerModel.js';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import nodemailer from "nodemailer";
 
 const createToken = (_id) => {
     return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '3d' });
+}
+
+
+export const sendOTP = async (req, res) => {
+    const data = {
+        name: req.body.firstName,
+        phone: req.body.phone,
+        email: req.body.email,
+    };
+    const sa = Date.now().toString();
+
+    const mid  = parseInt(sa);
+
+    let otp = mid%1000000;
+
+    while (otp<1000000) {
+        otp = otp*10;
+    }
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "lawease24@gmail.com",
+            pass: "caou envd jhnj tmxl",
+        },
+    });
+
+    var mailOptions = {
+        from: "lawease24@gmail.com",
+        to: data.email,
+        // console.log(date.email)
+        subject: `Email verification for Lawyer Registration `,
+        text: `Hi ${data.name},\nThank you for choosing LawEase\nHere is your OTP for Email Verification ${otp}\nLooking forward to help you.\nTeam LawEase`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Email sent: " + info.response);
+        }
+    });
+
+    const toSend=otp.toString();
+
+    return res.status(201).json(toSend);
+
 }
 
 export const loginUser = async (req, res) => {
