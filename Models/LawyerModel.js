@@ -32,7 +32,7 @@ const lawyerSchema = new mongoose.Schema({
         type: String
     },
     experience: {
-        type: String
+        type: Number
     },
     category: {
         type: [String]
