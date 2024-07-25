@@ -172,7 +172,7 @@ export const markAsCompleted = async (req, res) => {
         text: `Hi ${dat.clientname},\nHow was your appointment with ${lawyer.firstname}?\n`,
         html: `<p>Hi ${dat.clientname},</p>
                <p>How was your appointment with ${lawyer.firstname}?</p>
-               <p>Provide your valuable feedback by clicking this <a href="http://localhost:3000/share-review/${lawyer._id + '-' + dat.clientname}">Lawease Feedback Posting</a>.</p>
+               <p>Provide your valuable feedback by clicking this <a href="http://localhost:3000/share-review/${lawyer._id}">Lawease Feedback Posting</a>.</p>
                <p>Team LawEase</p>`,
         };
 
